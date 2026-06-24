@@ -1,0 +1,104 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+exclude = [
+    ".git", ".venv", "__pycache__", "dist", "build",
+    "*.egg-info", ".mypy_cache", ".pytest_cache",
+    "notebooks/",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "SIM", # flake8-simplify
+    "N",   # pep8-naming
+    "ANN", # flake8-annotations (partial)
+    "S",   # flake8-bandit
+    "RUF", # ruff-specific
+]
+ignore = [
+    "E501",   # line too long (handled by formatter)
+    "B008",   # do not perform function calls in argument defaults (FastAPI Depends)
+    "S101",   # use of assert (needed in tests)
+    "ANN101", # missing type annotation for self
+    "ANN102", # missing type annotation for cls
+    "ANN401", # allow Any type annotations
+    "S105",   # hardcoded password (false positives in test fixtures)
+    "S106",   # hardcoded password (false positives)
+    "N803",   # argument name should be lowercase (pandas convention)
+    "N806",   # variable in function should be lowercase (ML convention)
+]
+fixable = ["ALL"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "ANN", "N"]
+"data/scripts/**" = ["ANN"]
+"notebooks/**" = ["ANN", "T201"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["core", "api", "ml", "services"]
+force-sort-within-sections = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | __pycache__
+  | dist
+  | build
+  | notebooks
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = ["core", "api", "ml", "services"]
+skip_glob = ["*.egg-info", ".venv/**", "notebooks/**"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+ignore_missing_imports = true
+warn_return_any = false
+warn_unused_configs = true
+exclude = ["notebooks/", "data/scripts/", "tests/"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "--tb=short -q"
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "tests/*",
+    ".venv/*",
+    "notebooks/*",
+    "data/scripts/*",
+    "*/migrations/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]

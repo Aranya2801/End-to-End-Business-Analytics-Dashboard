@@ -1,0 +1,181 @@
+# ════════════════════════════════════════════════════════════
+# NexAnalytics .gitignore
+# ════════════════════════════════════════════════════════════
+
+# ─── Environment & Secrets ───────────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.production
+*.pem
+*.key
+*.cert
+*.p12
+secrets/
+docker/ssl/
+
+# ─── Python ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+MANIFEST
+.installed.cfg
+*.spec
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+.virtualenv/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+htmlcov/
+.hypothesis/
+nosetests.xml
+test-results/
+
+# ─── Node / Next.js ──────────────────────────────────────────
+node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.vercel
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.npm
+.yarn/cache
+.yarn/unplugged
+.pnpm-store/
+
+# ─── Data Files (Large datasets — use Git LFS or DVC) ───────
+data/raw/*.csv
+data/raw/*.parquet
+data/raw/*.json
+data/raw/*.xlsx
+data/processed/
+data/exports/
+data/analytics.duckdb
+data/analytics.duckdb.wal
+*.duckdb
+*.duckdb.wal
+
+# ─── ML Models ───────────────────────────────────────────────
+ml/saved_models/*.pkl
+ml/saved_models/*.joblib
+ml/saved_models/*.h5
+ml/saved_models/*.pt
+ml/saved_models/*.pth
+ml/saved_models/*.onnx
+notebooks/.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ─── Logs ────────────────────────────────────────────────────
+logs/
+*.log
+*.log.*
+pip-log.txt
+
+# ─── IDEs & Editors ──────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.directory
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+# ─── Docker ──────────────────────────────────────────────────
+docker-compose.override.yml
+docker-compose.local.yml
+
+# ─── Deployment ──────────────────────────────────────────────
+.vercel
+.railway
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# ─── OS ──────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ─── Build artifacts ─────────────────────────────────────────
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.manifest
+*.spec
+*.exe
+*.msi
+*.msm
+*.msp
+
+# ─── Monitoring ──────────────────────────────────────────────
+prometheus_data/
+grafana_data/
+
+# ─── Temp ────────────────────────────────────────────────────
+tmp/
+temp/
+.tmp/
+*.tmp
+*.bak
+*.backup
+*.orig

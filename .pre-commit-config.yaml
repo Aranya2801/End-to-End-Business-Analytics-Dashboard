@@ -1,0 +1,86 @@
+repos:
+  # ─── Python Quality ──────────────────────────────────────────
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.2
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^backend/
+      - id: ruff-format
+        files: ^backend/
+
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+        language_version: python3.12
+        files: ^backend/
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        files: ^backend/
+        args: ["--profile", "black"]
+
+  # ─── General ─────────────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=5000"]
+      - id: detect-private-key
+      - id: check-case-conflict
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+
+  # ─── Security ────────────────────────────────────────────────
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.0
+    hooks:
+      - id: bandit
+        args: ["-ll", "--skip", "B101,B601"]
+        files: ^backend/
+        exclude: tests/
+
+  # ─── Secrets Detection ───────────────────────────────────────
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+        exclude: |
+          (?x)^(
+            .env.example|
+            CHANGELOG.md|
+            docs/.*
+          )$
+
+  # ─── Frontend ────────────────────────────────────────────────
+  - repo: local
+    hooks:
+      - id: eslint
+        name: ESLint (TypeScript)
+        language: node
+        entry: bash -c "cd frontend && npm run lint"
+        files: ^frontend/src/.*\.(ts|tsx)$
+        pass_filenames: false
+
+      - id: prettier
+        name: Prettier (TypeScript/CSS)
+        language: node
+        entry: bash -c "cd frontend && npx prettier --check src/"
+        files: ^frontend/src/.*\.(ts|tsx|css)$
+        pass_filenames: false
+
+  # ─── Commit Message ──────────────────────────────────────────
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.1.0
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
